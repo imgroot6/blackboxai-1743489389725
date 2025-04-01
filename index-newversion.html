@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rabbit Call</title>
+    <link rel="stylesheet" href="admin-styles-enhanced.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="firebase-auth.js"></script>
+</head>
+<body>
+    <div class="login-container pikachu-theme">
+        <div class="login-header">
+            <div class="text-logo">
+                <span class="thunder-symbol">⚡</span>
+                <span>Rabbit Call</span>
+                <span class="thunder-symbol">⚡</span>
+            </div>
+        </div>
+        
+        <div id="login-options">
+            <div class="form-group">
+                <label for="login-input">Email or Phone Number</label>
+                <input type="text" id="login-input" placeholder="Enter email or phone" autofocus>
+                <div id="input-hint" class="hint-text"></div>
+            </div>
+
+            <div id="email-fields" class="hidden">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+                <button id="email-login" class="btn-primary">
+                    <span class="btn-text">Login</span>
+                </button>
+            </div>
+
+            <div id="mobile-fields" class="hidden">
+                <div id="recaptcha-container"></div>
+                <button id="send-otp" class="btn-primary">
+                    <span class="btn-text">Send Verification Code</span>
+                </button>
+            </div>
+
+            <div id="otp-section" class="hidden">
+                <div class="form-group">
+                    <label for="otp">Verification Code</label>
+                    <input type="text" id="otp" placeholder="Enter 6-digit code">
+                </div>
+                <button id="verify-otp" class="btn-primary">
+                    <span class="btn-text">Verify & Continue</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginInput = document.getElementById('login-input');
+            
+            loginInput.addEventListener('input', function() {
+                const value = this.value.trim();
+                if (value.includes('@')) {
+                    document.getElementById('email-fields').classList.remove('hidden');
+                    document.getElementById('mobile-fields').classList.add('hidden');
+                    document.getElementById('otp-section').classList.add('hidden');
+                } else if (value.match(/^[0-9+]+$/)) {
+                    document.getElementById('email-fields').classList.add('hidden');
+                    document.getElementById('mobile-fields').classList.remove('hidden');
+                    document.getElementById('otp-section').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
