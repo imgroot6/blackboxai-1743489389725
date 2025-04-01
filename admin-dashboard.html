@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rabbit Call Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-styles-enhanced.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="branding">
+                <i class="fas fa-rabbit logo"></i>
+                <h1>Rabbit Call Admin</h1>
+            </div>
+            <div class="user-info">
+                <span id="admin-email">admin@rabbitcall.com</span>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <div class="metrics-grid">
+            <!-- Real-time Metrics -->
+            <div class="metric-card primary">
+                <div class="metric-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Online Users</h3>
+                    <p class="metric-value">1,428</p>
+                    <p class="metric-trend up"><i class="fas fa-arrow-up"></i> 12% from yesterday</p>
+                </div>
+            </div>
+
+            <div class="metric-card primary">
+                <div class="metric-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Active Calls</h3>
+                    <p class="metric-value">327</p>
+                    <p class="metric-trend up"><i class="fas fa-arrow-up"></i> 8% from yesterday</p>
+                </div>
+            </div>
+
+            <div class="metric-card primary">
+                <div class="metric-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Total Connections</h3>
+                    <p class="metric-value">5,219</p>
+                    <p class="metric-trend up"><i class="fas fa-arrow-up"></i> 15% from yesterday</p>
+                </div>
+            </div>
+
+            <div class="metric-card revenue">
+                <div class="metric-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="metric-content">
+                    <h3>Today's Revenue</h3>
+                    <p class="metric-value">$8,427</p>
+                    <p class="metric-trend up"><i class="fas fa-arrow-up"></i> 22% from yesterday</p>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="stats-card wide">
+                <h2><i class="fas fa-chart-line"></i> Call Statistics</h2>
+                <div class="stats-content">
+                    <div class="stat-item">
+                        <h3>Average Duration</h3>
+                        <p>14.2 minutes</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Peak Hours</h3>
+                        <p>2:00 PM - 5:00 PM</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Busiest Day</h3>
+                        <p>Wednesday</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <h2><i class="fas fa-globe"></i> User Locations</h2>
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>18 countries active today</p>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <h2><i class="fas fa-server"></i> System Health</h2>
+                <div class="health-metrics">
+                    <div class="health-item good">
+                        <span>Uptime</span>
+                        <span>99.98%</span>
+                    </div>
+                    <div class="health-item good">
+                        <span>Latency</span>
+                        <span>42ms</span>
+                    </div>
+                    <div class="health-item warning">
+                        <span>Storage</span>
+                        <span>78% used</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Secret Call Joiner Section -->
+        <div class="stats-card wide">
+            <h2><i class="fas fa-user-secret"></i> Secret Call Access</h2>
+            <div class="secret-call-controls">
+                <input type="text" id="callRoomId" placeholder="Enter Room ID" class="secret-input">
+                <button id="joinSecretlyBtn" class="secret-join-btn">
+                    <i class="fas fa-sign-in-alt"></i> Join Secretly
+                </button>
+            </div>
+            <div class="stealth-options">
+                <label>
+                    <input type="checkbox" id="hidePresence" checked>
+                    Hide My Presence
+                </label>
+                <label>
+                    <input type="checkbox" id="muteMic" checked>
+                    Mute Microphone
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Fetch real-time metrics
+        let lastMetrics = {};
+        
+        async function fetchMetrics() {
+            try {
+                // Show loading state
+                document.querySelectorAll('.metric-value').forEach(el => {
+                    if (!el.innerHTML.includes('loading-spinner')) {
+                        el.innerHTML = `<div class="loading-spinner"></div> ${el.textContent}`;
+                    }
+                });
+
+                const response = await fetch('/api/admin-metrics');
+                if (!response.ok) throw new Error('Network error');
+                const data = await response.json();
+                
+                // Calculate trends if we have previous data
+                if (Object.keys(lastMetrics).length > 0) {
+                    data.onlineUsersChange = calculateChange(
+                        data.onlineUsers, lastMetrics.onlineUsers);
+                    data.activeCallsChange = calculateChange(
+                        data.activeCalls, lastMetrics.activeCalls);
+                    data.totalConnectionsChange = calculateChange(
+                        data.totalConnections, lastMetrics.totalConnections);
+                    data.revenueChange = calculateChange(
+                        data.revenue, lastMetrics.revenue);
+                }
+                
+                lastMetrics = data;
+                
+                // Update metrics
+                document.getElementById('onlineUsers').textContent = data.onlineUsers.toLocaleString();
+                document.getElementById('activeCalls').textContent = data.activeCalls.toLocaleString();
+                document.getElementById('totalConnections').textContent = data.totalConnections.toLocaleString();
+                document.getElementById('revenue').textContent = `$${data.revenue.toLocaleString()}`;
+                
+                // Update trends
+                updateTrend('onlineUsersTrend', data.onlineUsersChange);
+                updateTrend('activeCallsTrend', data.activeCallsChange);
+                updateTrend('connectionsTrend', data.connectionsChange);
+                updateTrend('revenueTrend', data.revenueChange);
+                
+                // Update statistics
+                document.getElementById('avgDuration').textContent = `${data.avgDuration} minutes`;
+                document.getElementById('peakHours').textContent = data.peakHours;
+                document.getElementById('busiestDay').textContent = data.busiestDay;
+                document.getElementById('userCountries').textContent = data.userCountries;
+                
+                // Update system health
+                document.getElementById('uptime').textContent = `${data.uptime}%`;
+                document.getElementById('latency').textContent = `${data.latency}ms`;
+                document.getElementById('storage').textContent = `${data.storage}% used`;
+                
+            } catch (error) {
+                console.error('Error fetching metrics:', error);
+            }
+        }
+
+        function calculateChange(current, previous) {
+            if (!previous || previous === 0) return 0;
+            return ((current - previous) / previous * 100).toFixed(1);
+        }
+
+        function updateTrend(elementId, change) {
+            const element = document.getElementById(elementId);
+            const absChange = Math.abs(change);
+            
+            if (change > 0) {
+                element.innerHTML = `<i class="fas fa-arrow-up"></i> ${absChange}%`;
+                element.className = 'metric-trend up';
+            } else if (change < 0) {
+                element.innerHTML = `<i class="fas fa-arrow-down"></i> ${absChange}%`;
+                element.className = 'metric-trend down';
+            } else {
+                element.innerHTML = `<i class="fas fa-equals"></i> 0%`;
+                element.className = 'metric-trend neutral';
+            }
+        }
+
+        // Initialize and refresh every 30 seconds
+        fetchMetrics();
+        setInterval(fetchMetrics, 30000);
+
+        // Secret call joining functionality
+        document.getElementById('joinSecretlyBtn').addEventListener('click', () => {
+            const roomId = document.getElementById('callRoomId').value.trim();
+            const hidePresence = document.getElementById('hidePresence').checked;
+            const muteMic = document.getElementById('muteMic').checked;
+            
+            if (!roomId) {
+                alert('Please enter a Room ID');
+                return;
+            }
+
+            // Store stealth settings
+            localStorage.setItem('stealthSettings', JSON.stringify({
+                hidePresence,
+                muteMic
+            }));
+
+            // Join call room with stealth parameters
+            window.location.href = `callroom.html?room=${roomId}&admin=true&stealth=${hidePresence}`;
+        });
+    </script>
+    <script>
+        // Display admin email
+        const user = JSON.parse(localStorage.getItem('rabbitcall_user'));
+        if (user) {
+            document.getElementById('admin-email').textContent = user.email;
+        }
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('rabbitcall_user');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
