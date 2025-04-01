@@ -1,0 +1,340 @@
+/* Enhanced Admin Dashboard Styles */
+:root {
+    --primary-color: #FFD700; /* Gold/Yellow */
+    --secondary-color: #FFEE93; /* Light Yellow */
+    --dark-color: #000000; /* Black */
+    --light-color: #1A1A1A; /* Dark Gray */
+    --success-color: #00FF00; /* Green */
+    --warning-color: #FFA500; /* Orange */
+    --danger-color: #FF0000; /* Red */
+    --text-light: #FFFFFF;
+    --text-dark: #000000;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark-color);
+    color: var(--text-light);
+}
+
+/* [Previous styles would be included here] */
+
+/* NEW ENHANCEMENTS */
+
+/* Neutral Trend Style */
+.metric-trend.neutral {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: var(--primary-color);
+}
+
+/* Data Freshness Indicators */
+.data-freshness {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.data-freshness.fresh {
+    color: var(--success-color);
+}
+
+.data-freshness.stale {
+    color: var(--warning-color);
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,215,0,0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.updating {
+    animation: pulse 0.5s ease;
+}
+
+/* ===== Pikachu-Themed Login Styles ===== */
+.pikachu-theme {
+    background: #FFDE00;
+    border: 4px solid #E60000;
+    position: relative;
+    overflow: hidden;
+}
+
+.pikachu-theme::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background: #E60000;
+    border-radius: 50%;
+    opacity: 0.2;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+}
+
+.thunder-logo {
+    height: 50px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.pikachu-image {
+    height: 60px;
+    animation: bounce 0.8s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+.pikachu-theme h1 {
+    color: #E60000;
+    text-shadow: 1px 1px 0 #fff;
+}
+
+.tagline {
+    color: #B30000;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.pikachu-theme .btn-primary {
+    background: #E60000;
+    color: white;
+}
+
+.pikachu-theme .btn-primary:hover {
+    background: #B30000;
+}
+
+.pikachu-theme .divider {
+    color: #B30000;
+}
+
+.pikachu-theme .divider::before,
+.pikachu-theme .divider::after {
+    border-color: #E60000;
+    opacity: 0.3;
+}
+
+.login-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    margin: 2rem auto;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header .logo {
+    height: 50px;
+    margin-bottom: 1rem;
+}
+
+.login-header h1 {
+    font-size: 1.8rem;
+    color: var(--dark-color);
+    margin: 0.5rem 0;
+}
+
+.login-header p {
+    color: #666;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.hint-text {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #e6c300;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--dark-color);
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-secondary:hover {
+    border-color: #aaa;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider::before {
+    margin-right: 1rem;
+}
+
+.divider::after {
+    margin-left: 1rem;
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 50%;
+    border-top-color: var(--dark-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#login-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Admin email detection */
+#login-input.admin-detected {
+    border: 2px solid var(--primary-color);
+    animation: pulse 0.5s ease;
+}
+
+/* Form sections */
+#email-fields, 
+#mobile-fields, 
+#otp-section {
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+/* Input focus state */
+#login-input:focus,
+#password:focus,
+#otp:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+/* Error states */
+.error {
+    border-color: var(--danger-color) !important;
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* reCAPTCHA container */
+#recaptcha-container {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+    
+    #login-input {
+        padding: 10px;
+    }
+}
