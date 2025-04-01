@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Existing head content remains the same -->
+    <!-- ... -->
+</head>
+<body class="min-h-screen text-white flex items-center justify-center p-4">
+    <!-- Existing body content remains the same -->
+    <!-- ... -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Form submission
+            document.getElementById('loginForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const remember = document.getElementById('remember').checked;
+
+                try {
+                    await auth.login(email, password);
+                    window.location.href = 'dashboard.html';
+                } catch (error) {
+                    alert(error.message || 'Login failed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
