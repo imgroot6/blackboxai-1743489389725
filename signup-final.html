@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Thunder</title>
+    <!-- Production CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK v9+ (modular) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+        
+        // Initialize Firebase
+        const app = initializeApp({
+          apiKey: "AIzaSyAnsOYAh3w-0pb3QkkSCDOGtHdv3JC_2Sc",
+          authDomain: "rabbitcall-6b7a0.firebaseapp.com",
+          projectId: "rabbitcall-6b7a0",
+          storageBucket: "rabbitdata-6b7a0.appspot.com",
+          messagingSenderId: "995065255495",
+          appId: "1:995065255495:web:6e765facda6b7b7c3c4362",
+          measurementId: "G-Y99M8KQ6LG"
+        });
+        
+        const auth = getAuth(app);
+        window.firebaseAuth = { auth, createUserWithEmailAndPassword };
+    </script>
+    <script src="auth-prod-v9.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white flex items-center justify-center p-4">
+    <!-- Signup Form Content -->
+    <div class="w-full max-w-md bg-gray-800 rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Create Account</h2>
+        <form id="signupForm">
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2" for="email">Email</label>
+                <input type="email" id="email" required
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2" for="password">Password</label>
+                <input type="password" id="password" required
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-300 mb-2" for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-300 mb-2" for="name">Full Name</label>
+                <input type="text" id="name" required
+                    class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500">
+            </div>
+            <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Sign Up
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('signupForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const name = document.getElementById('name').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                try {
+                    await auth.register(email, password, name);
+                    window.location.href = 'dashboard.html';
+                } catch (error) {
+                    alert(error.message || 'Registration failed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
