@@ -1,0 +1,66 @@
+/* Existing styles */
+.login-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #FFDE00; /* Pikachu yellow */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border: 3px solid #CC0000; /* Pokemon red */
+}
+
+.pikachu-theme {
+    background: #FFDE00;
+    color: #333;
+}
+
+.pikachu-theme .btn-primary {
+    background: #CC0000;
+    color: white;
+    border: none;
+}
+
+.pikachu-theme .btn-primary:hover {
+    background: #A30000;
+}
+
+.pikachu-theme .thunder-symbol {
+    color: #CC0000;
+    font-size: 1.2em;
+}
+
+.pikachu-theme .text-logo {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Other existing styles... */
+
+.btn-secondary:hover {
+    background: #f8f9fa;
+}
+
+/* New footer styles */
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+    color: #666;
+}
+
+.login-footer a {
+    color: #E60000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.login-footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
