@@ -3,68 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rabbit Call - Video Calling App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Thunder - Watch & Chat with Friends</title>
+    <!-- Production-ready Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .pikachu-yellow {
-            background-color: #FFD700;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
-        .pikachu-yellow-light {
-            background-color: #FFEC8B;
-        }
-        .thunder-logo {
-            color: #FFA500;
-            text-shadow: 0 0 5px #FFD700;
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(26,26,46,0.8) 0%, rgba(22,33,62,0.9) 100%);
         }
     </style>
 </head>
-<body class="bg-gray-100">
-    <div class="min-h-screen flex flex-col items-center justify-center p-4">
-        <div class="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden pikachu-yellow-light">
-            <div class="p-6 text-center">
-                <div class="thunder-logo text-5xl mb-4">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <h1 class="text-3xl font-bold text-gray-800 mb-2">Rabbit Call</h1>
-                <p class="text-gray-600 mb-6">Connect with friends and share experiences</p>
-                
-                <div class="space-y-4">
-                    <div class="bg-white rounded-lg shadow p-4">
-                        <h2 class="text-xl font-semibold mb-4">Welcome to Rabbit Call</h2>
-                        
-                        <!-- Google Sign-In -->
-                        <button id="googleSignIn" class="w-full flex items-center justify-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg mb-4 transition duration-200">
-                            <i class="fab fa-google mr-2"></i> Sign in with Google
-                        </button>
-                        
-                        <div class="flex items-center my-4">
-                            <div class="flex-1 border-t border-gray-300"></div>
-                            <span class="px-3 text-gray-500">or</span>
-                            <div class="flex-1 border-t border-gray-300"></div>
-                        </div>
-                        
-                        <!-- Email/OTP Login -->
-                        <form id="loginForm">
-                            <div class="mb-4">
-                                <input type="email" id="loginEmail" placeholder="Email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
-                            </div>
-                            <div id="otpField" class="mb-4 hidden">
-                                <input type="text" id="loginOTP" placeholder="Enter OTP" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                            </div>
-                            <button type="submit" id="loginSubmit" class="w-full py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition duration-200">
-                                Send OTP
-                            </button>
-                        </form>
+<body class="min-h-screen text-white">
+    <!-- Navigation -->
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <img src="thunder-logo.png" alt="Thunder Logo" class="h-10">
+            <span class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Thunder</span>
+        </div>
+        <div class="hidden md:flex space-x-8">
+            <a href="#" class="hover:text-blue-400 transition">Features</a>
+            <a href="#" class="hover:text-blue-400 transition">How It Works</a>
+            <a href="#" class="hover:text-blue-400 transition">Pricing</a>
+        </div>
+        <div>
+            <a href="login-prod.html" class="px-6 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition shadow-lg">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient">
+        <div class="container mx-auto px-6 py-20 md:py-32">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+                        Watch, Chat & Play <span class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Together</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8">
+                        Thunder brings friends together for synchronized movie watching, real-time chat, and fun games - all in one place.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="signup-prod.html" class="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition shadow-lg text-center font-medium">
+                            Get Started - It's Free
+                        </a>
+                        <a href="#" class="px-8 py-3 rounded-full bg-gray-800 hover:bg-gray-700 transition shadow-lg text-center font-medium">
+                            <i class="fas fa-play mr-2"></i> See How It Works
+                        </a>
                     </div>
-                    
-                    <div class="text-center text-sm">
-                        <p class="text-gray-600">By continuing, you agree to our <a href="#" class="text-yellow-600 hover:underline">Terms</a> and <a href="#" class="text-yellow-600 hover:underline">Privacy Policy</a></p>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -top-6 -left-6 w-full h-full border-2 border-blue-400 rounded-xl"></div>
+                        <div class="relative bg-gray-800 rounded-xl overflow-hidden shadow-2xl">
+                            <img src="https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg" alt="Friends watching movie together" class="w-full h-auto">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+                                <div class="flex items-center">
+                                    <div class="flex -space-x-2">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full border-2 border-blue-400">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border-2 border-blue-400">
+                                        <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-10 h-10 rounded-full border-2 border-blue-400">
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="font-medium">Watching: Interstellar</p>
+                                        <p class="text-sm text-gray-400">3 friends in room</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="script.js"></script>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-4">Everything You Need to Hang Out Online</h2>
+            <p class="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto">
+                Thunder combines all the best ways to connect with friends in one seamless experience.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Feature 1 -->
+                <div class="bg-gray-800 rounded-xl p-8 hover:transform hover:scale-105 transition duration-300">
+                    <div class="w-16 h-16 bg-blue-500 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-film text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Sync Movie Watching</h3>
+                    <p class="text-gray-400">
+                        Watch movies and shows together with perfectly synchronized playback. Pause, play, and seek in perfect harmony.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-gray-800 rounded-xl p-8 hover:transform hover:scale-105 transition duration-300">
+                    <div class="w-16 h-16 bg-purple-500 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-comments text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Real-Time Chat</h3>
+                    <p class="text-gray-400">
+                        React with emojis, send GIFs, and chat while you watch. Our low-latency chat keeps the conversation flowing.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-gray-800 rounded-xl p-8 hover:transform hover:scale-105 transition duration-300">
+                    <div class="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-gamepad text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Play Games Together</h3>
+                    <p class="text-gray-400">
+                        Take a break from watching with our collection of multiplayer games. Trivia, drawing games, and more!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-blue-600 to-purple-700">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Hang Out with Friends?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Join thousands of users enjoying synchronized entertainment with their friends.
+            </p>
+            <a href="signup.html" class="inline-block px-8 py-3 rounded-full bg-white text-blue-600 hover:bg-gray-100 transition shadow-lg font-medium">
+                Create Free Account
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-6 md:mb-0">
+                    <img src="thunder-logo.png" alt="Thunder Logo" class="h-8">
+                    <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Thunder</span>
+                </div>
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github"></i></a>
+                </div>
+                <div class="text-gray-400 text-sm">
+                    &copy; 2023 Thunder. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for features on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const features = document.querySelectorAll('.bg-gray-800.rounded-xl');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fadeIn');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            features.forEach(feature => {
+                observer.observe(feature);
+            });
+        });
+    </script>
 </body>
 </html>
