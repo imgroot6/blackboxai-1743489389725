@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rabbit Call Login</title>
+    <link rel="stylesheet" href="admin-styles-enhanced.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #FFDE00;
+            border: 3px solid #CC0000;
+            border-radius: 8px;
+        }
+        .thunder-symbol {
+            color: #CC0000;
+            font-size: 1.5em;
+        }
+        .btn-primary {
+            background: #CC0000;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #CC0000;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="text-logo">
+                <span class="thunder-symbol">⚡</span>
+                <span>Rabbit Call</span>
+                <span class="thunder-symbol">⚡</span>
+            </div>
+        </div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" 
+                       autocomplete="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••"
+                       autocomplete="current-password" required>
+            </div>
+            
+            <button type="submit" id="login-btn" class="btn-primary">Login</button>
+        </form>
+    </div>
+
+    <script src="firebase-auth.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Check if user is admin
+                    const adminEmails = ['dallisairedddy1141@gmail.com'];
+                    if (adminEmails.includes(userCredential.user.email)) {
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        window.location.href = 'dashboard.html';
+                    }
+                })
+                .catch(error => {
+                    let errorMessage = 'Login failed';
+                    if (error.code === 'auth/wrong-password') {
+                        errorMessage = 'Incorrect password';
+                    } else if (error.code === 'auth/user-not-found') {
+                        errorMessage = 'Email not registered';
+                    }
+                    alert(errorMessage);
+                });
+        });
+    </script>
+</body>
+</html>
