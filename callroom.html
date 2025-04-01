@@ -148,5 +148,33 @@
     <!-- JavaScript Libraries -->
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Admin stealth mode functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === 'true') {
+                const stealthSettings = JSON.parse(localStorage.getItem('stealthSettings') || '{}');
+                
+                // Apply stealth settings
+                if (stealthSettings.hidePresence) {
+                    // Hide admin presence
+                    document.getElementById('localUsername').textContent = 'Guest';
+                    document.getElementById('localVideo').style.opacity = '0.5';
+                    
+                    // Hide admin controls
+                    document.querySelectorAll('.pikachu-yellow, .controls, #adminCallControls')
+                        .forEach(el => el.style.display = 'none');
+                }
+
+                if (stealthSettings.muteMic) {
+                    // Automatically mute microphone
+                    setTimeout(() => {
+                        const muteBtn = document.getElementById('toggleMic');
+                        if (muteBtn) muteBtn.click();
+                    }, 1000);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
