@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Thunder</title>
+    <!-- Production CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK v9+ (modular) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+        
+        // Initialize Firebase
+        const app = initializeApp({
+          apiKey: "AIzaSyAnsOYAh3w-0pb3QkkSCDOGtHdv3JC_2Sc",
+          authDomain: "rabbitcall-6b7a0.firebaseapp.com",
+          projectId: "rabbitcall-6b7a0",
+          storageBucket: "rabbitcall-6b7a0.firebasestorage.app",
+          messagingSenderId: "995065255495",
+          appId: "1:995065255495:web:6e765facda6b7b7c3c4362",
+          measurementId: "G-Y99M8KQ6LG"
+        });
+        
+        const auth = getAuth(app);
+        window.firebaseAuth = { auth, signInWithEmailAndPassword };
+    </script>
+    <script src="auth-prod-v9.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white flex items-center justify-center p-4">
+    <!-- Login form content same as original login.html -->
+    <!-- ... -->
+    
+    <script>
+        // Form submission using auth-prod
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await auth.login(email, password);
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    </script>
+</body>
+</html>
