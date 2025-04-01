@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rabbit Call - Mobile Login</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="firebase-auth.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #FFD700;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #FFD700;
+            color: black;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #recaptcha-container {
+            margin: 1rem 0;
+        }
+        #otp-section {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Rabbit Call Login</h1>
+        <div id="phone-section">
+            <div class="form-group">
+                <input type="tel" id="phone" placeholder="Enter mobile number" required>
+            </div>
+            <div id="recaptcha-container"></div>
+            <button id="send-otp">Send OTP</button>
+        </div>
+        <div id="otp-section">
+            <div class="form-group">
+                <input type="text" id="otp" placeholder="Enter OTP" required>
+            </div>
+            <button id="verify-otp">Verify OTP</button>
+        </div>
+    </div>
+
+    <script>
+        let confirmationResult;
+        let recaptchaVerifier;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize reCAPTCHA
+            recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                'size': 'normal',
+                'callback': () => {
+                    // reCAPTCHA solved
+                }
+            });
+
+            document.getElementById('send-otp').addEventListener('click', sendOTP);
+            document.getElementById('verify-otp').addEventListener('click', verifyOTP);
+        });
+
+        function sendOTP() {
+            const phoneNumber = '+91' + document.getElementById('phone').value;
+            
+            loginWithMobile(phoneNumber, recaptchaVerifier)
+                .then((result) => {
+                    confirmationResult = result;
+                    document.getElementById('phone-section').style.display = 'none';
+                    document.getElementById('otp-section').style.display = 'block';
+                })
+                .catch((error) => {
+                    alert('Error sending OTP: ' + error.message);
+                });
+        }
+
+        function verifyOTP() {
+            const otp = document.getElementById('otp').value;
+            
+            verifyOTP(confirmationResult, otp)
+                .then((user) => {
+                    window.location.href = 'dashboard.html';
+                })
+                .catch((error) => {
+                    alert('Invalid OTP: ' + error.message);
+                });
+        }
+    </script>
+</body>
+</html>
