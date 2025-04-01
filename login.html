@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbit Call - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .pikachu-yellow { background-color: #FFD700; }
+        .thunder-logo { color: #FFA500; text-shadow: 0 0 5px #FFD700; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="p-6 text-center">
+                <div class="thunder-logo text-5xl mb-4">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Rabbit Call</h1>
+                
+                <form id="loginForm" class="mt-6">
+                    <div class="mb-4">
+                        <input type="email" id="loginEmail" placeholder="Email" 
+                               class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                    </div>
+                    <button type="submit" class="w-full py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg transition duration-200">
+                        Login
+                    </button>
+                </form>
+
+                <div class="text-center text-sm mt-6">
+                    <p class="text-gray-600">For demo purposes, use:</p>
+                    <p class="text-yellow-600 font-medium">admin@rabbitcall.com</p>
+                    <p class="text-yellow-600 font-medium">dallisairedddy1141@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html>
