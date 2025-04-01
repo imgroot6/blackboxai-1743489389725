@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rabbit Call Dashboard</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .admin-control {
+            display: none;
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4285f4;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+        .user-email {
+            color: #666;
+            font-size: 14px;
+        }
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>Rabbit Call Dashboard</h1>
+            <div class="user-email" id="userEmail"></div>
+        </div>
+        <div id="adminControls" class="admin-control">
+            <h3>Admin Controls</h3>
+            <p>You have administrator privileges</p>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+    
+    <h2>Welcome to your dashboard</h2>
+    <p>Start a new call or join an existing session.</p>
+    
+    <script src="auth.js"></script>
+    <script>
+        // Display current user email
+        const user = JSON.parse(localStorage.getItem('rabbitcall_user'));
+        if (user) {
+            document.getElementById('userEmail').textContent = user.email;
+        }
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('rabbitcall_user');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
