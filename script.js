@@ -48,9 +48,45 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check if user is already authenticated
             checkAuthState();
             
+            // Get room ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const roomId = urlParams.get('room') || generateRoomId();
+            
+            // Initialize media streams
+            await initMediaStreams();
+            
+            // Join the room
+            socket.emit('join', roomId, authState.user?.id || 'anonymous');
+            
         } catch (error) {
             console.error('Error initializing:', error);
             alert('Error initializing application. Please try again.');
+        }
+    }
+    
+    // Generate random room ID
+    function generateRoomId() {
+        return Math.random().toString(36).substring(2, 8);
+    }
+    
+    // Initialize media streams
+    async function initMediaStreams() {
+        try {
+            localStream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            });
+            localVideo.srcObject = localStream;
+            
+            // Enable controls
+            toggleMicBtn.disabled = false;
+            toggleCameraBtn.disabled = false;
+            toggleScreenShareBtn.disabled = false;
+            
+        } catch (error) {
+            console.error('Error getting media devices:', error);
+            alert('Could not access camera/microphone. Please check permissions.');
+            throw error;
         }
     }
 
